@@ -14,9 +14,5 @@ mod "kubernetes_vpa_right_sizing" {
     plugin "kubernetes" {
       min_version = "0.29.0"
     }
-
-    mod "github.com/turbot/steampipe-mod-kubernetes-compliance" {
-      version = "*"
-    }
   }
 }
