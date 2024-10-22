@@ -1,0 +1,4 @@
+vpa/
+vpa-manifests/
+.powerpipe
+.mod.cache.json
