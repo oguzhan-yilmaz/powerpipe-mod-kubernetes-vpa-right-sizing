@@ -1,0 +1,26 @@
+fullnameOverride: "vpa-recommender"
+
+recommender:
+  enabled: true
+
+  extraArgs:
+    v: "4"
+    pod-recommendation-min-cpu-millicores: 15
+    pod-recommendation-min-memory-mb: 100
+  
+  # recommender.resources -- The resources block for the recommender pod
+  resources:
+    limits: {}
+      # cpu: 200m
+      # memory: 1000Mi
+    requests:
+      cpu: 50m
+      memory: 500Mi
+
+
+updater:
+  enabled: false
+  
+admissionController:
+  enabled: false
+  
