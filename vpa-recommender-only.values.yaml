@@ -3,6 +3,10 @@ fullnameOverride: "vpa-recommender"
 recommender:
   enabled: true
 
+  # recommended to update this value by checking out the Releases page
+  #   https://github.com/kubernetes/autoscaler/releases?q=vertical-pod-autoscaler&expanded=true
+  image:
+    tag: "1.2.1"
   extraArgs:
     v: "4"
     pod-recommendation-min-cpu-millicores: 15
