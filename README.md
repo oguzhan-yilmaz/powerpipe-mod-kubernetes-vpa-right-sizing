@@ -3,8 +3,33 @@
 
 ## Requirements
 
+### metric-server
+
+Make sure [metrics-server](https://github.com/kubernetes-sigs/metrics-server/tree/master/charts/metrics-server) is installed for VPA to work by running below commands.
+
+```bash
+kubectl top pods
+kubectl top nodes
+```
+
 ### Install VPA (Recommender Only)
 
+```bash
+helm repo add fairwinds-stable https://charts.fairwinds.com/stable
+
+helm repo update fairwinds-stable
+
+# get the custom values yaml for fairwinds/vpa chart
+curl -LO https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/vpa-recommender-only.values.yaml
+
+cat vpa-recommender-only.values.yaml
+
+
+# install the helm chart w/ custom values
+helm upgrade --install vpa fairwinds-stable/vpa -f vpa-recommender-only.values.yaml -n kube-system
+```
+
+<!-- 
 ```bash
 
 git clone https://github.com/kubernetes/autoscaler.git --depth 1
@@ -28,7 +53,14 @@ kubectl kustomize autoscaler/vertical-pod-autoscaler/deploy > vpa-recommend-mani
 
 
 kubectl apply -f vpa-recommend-manifests.yaml
-```
+
+
+# check the deployment health
+kubectl get deployment vpa-recommender -n kube-system
+
+kubectl logs deployment/vpa-recommender -n kube-system
+``` 
+-->
 
 ### Add custom PSQL functions to Steampipe DB
 
