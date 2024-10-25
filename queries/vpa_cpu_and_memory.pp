@@ -45,12 +45,11 @@ query "vpa_cpu_and_memory_deployment" {
         cpu_convert(r.lower_bound_cpu)||'m' AS "Rec: Lower CPU",
         cpu_convert(r.target_cpu)||'m' AS "Rec: Target CPU",
         cpu_convert(r.upper_bound_cpu)||'m' AS "Rec: Upper CPU",
-        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem. Request",
-        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem. Limit",
-        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem.",
-        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem.",
-        -- bytes_to_mebi(memory_bytes(r.uncapped_target_memory))||'Mi' AS rec_uncapped_target_mem,
-        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem."
+        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem Request",
+        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem Limit",
+        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem",
+        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem",
+        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem"
     FROM 
         deployment_data d
     JOIN 
@@ -112,12 +111,12 @@ query "vpa_cpu_and_memory_stateful_set" {
         cpu_convert(r.lower_bound_cpu)||'m' AS "Rec: Lower CPU",
         cpu_convert(r.target_cpu)||'m' AS "Rec: Target CPU",
         cpu_convert(r.upper_bound_cpu)||'m' AS "Rec: Upper CPU",
-        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem. Request",
-        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem. Limit",
-        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem.",
-        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem.",
+        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem Request",
+        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem Limit",
+        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem",
+        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem",
         -- bytes_to_mebi(memory_bytes(r.uncapped_target_memory))||'Mi' AS rec_uncapped_target_mem,
-        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem."
+        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem"
     FROM 
         stateful_set_data d
     JOIN 
@@ -179,12 +178,12 @@ query "vpa_cpu_and_memory_daemonset" {
         cpu_convert(r.lower_bound_cpu)||'m' AS "Rec: Lower CPU",
         cpu_convert(r.target_cpu)||'m' AS "Rec: Target CPU",
         cpu_convert(r.upper_bound_cpu)||'m' AS "Rec: Upper CPU",
-        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem. Request",
-        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem. Limit",
-        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem.",
-        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem.",
+        bytes_to_mebi(memory_bytes(d.requests_memory))||'Mi' AS "Mem Request",
+        bytes_to_mebi(memory_bytes(d.limits_memory))||'Mi' AS "Mem Limit",
+        bytes_to_mebi(memory_bytes(r.lower_bound_memory))||'Mi' AS "Rec: Lower Mem",
+        bytes_to_mebi(memory_bytes(r.target_memory))||'Mi' AS "Rec: Target Mem",
         -- bytes_to_mebi(memory_bytes(r.uncapped_target_memory))||'Mi' AS rec_uncapped_target_mem,
-        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem."
+        bytes_to_mebi(memory_bytes(r.upper_bound_memory))||'Mi' AS "Rec: Upper Mem"
     FROM 
         daemonset_data d
     JOIN 

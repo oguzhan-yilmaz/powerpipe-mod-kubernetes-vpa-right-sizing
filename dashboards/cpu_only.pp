@@ -2,26 +2,40 @@
 
 dashboard "vpa_cpu_only" {
   
-  title = "VPA Only CPU"
+  title = "VPA CPU Recommendations"
   
   input "vpa_namespace" {
     title = "Select a Namespace:"
     query = query.vpa_namespace_input
     width = 4
   }
-  input "vpa_target_kind" {
-    title = "Select a Type:"
-    query = query.vpa_target_kind_input
-    width = 4
-  }
+
   table {
-    title = "VPA CPU Recommendations"
-    width = 15
-    query = query.vpa_cpu_only
+    title = "Deployments"
+    width = 12
+    query = query.vpa_cpu_only_deployment
     args = {
-      namespace = self.input.vpa_namespace.value,
-      target_kind = self.input.vpa_target_kind.value
+      namespace = self.input.vpa_namespace.value
     }
   }
+
+  table {
+    title = "Stateful Sets"
+    width = 12
+    query = query.vpa_cpu_only_statefulset
+    args = {
+      namespace = self.input.vpa_namespace.value
+    }
+  }
+
+  table {
+    title = "Daemon Sets"
+    width = 12
+    query = query.vpa_cpu_only_daemonset
+    args = {
+      namespace = self.input.vpa_namespace.value
+    }
+  }
+
 
 }

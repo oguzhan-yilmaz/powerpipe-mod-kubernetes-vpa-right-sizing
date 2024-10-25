@@ -14,11 +14,11 @@ query "vpa_target_kind_input" {
 query "vpa_namespace_input" {
   sql = <<-EOQ
     select
-     distinct namespace as label,
-     namespace as value
+     distinct name as label,
+     name as value
     from
-      kubernetes_verticalpodautoscaler
+      kubernetes_namespace
     order by
-      namespace;
+      name;
   EOQ
 }

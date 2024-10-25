@@ -4,7 +4,7 @@ dashboard "vpa_deployments" {
   title = "Deployments: Limits and Requests"
   table {
     title = "Deployments: Limits and Requests"
-    width = 15
+    width = 12
     query = query.deployments
   }
 }

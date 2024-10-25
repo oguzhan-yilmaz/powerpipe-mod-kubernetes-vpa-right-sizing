@@ -4,20 +4,20 @@ dashboard "non_vpa_targets" {
 
   table {
     title = "NO VPA -- Deployments"
-    width = 15
+    width = 12
     query = query.non_vpa_deployments
   }
 
 
   table {
     title = "NO VPA -- Stateful Sets"
-    width = 15
+    width = 12
     query = query.non_vpa_statefulsets
   }
 
   table {
     title = "NO VPA -- Daemon Sets"
-    width = 15
+    width = 12
     query = query.non_vpa_daemonsets
   }
 

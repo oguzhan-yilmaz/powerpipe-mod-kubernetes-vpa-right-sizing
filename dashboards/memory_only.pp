@@ -1,27 +1,37 @@
-
-
 dashboard "vpa_memory_only" {
   
-  title = "VPA Only Memory"
+  title = "VPA Memory Recommendations"
   input "vpa_namespace" {
     title = "Select a Namespace:"
     query = query.vpa_namespace_input
     width = 4
   }
   
-  input "vpa_target_kind" {
-    title = "Select a Type:"
-    query = query.vpa_target_kind_input
-    width = 4
+  table {
+    title = "Deployment"
+    width = 12
+    query = query.vpa_memory_only_deployment
+    args = {
+      namespace = self.input.vpa_namespace.value
+    }
   }
 
   table {
-    title = "VPA Memory Recommendations"
-    width = 15
-    query = query.vpa_memory_only
+    title = "Stateful Set"
+    width = 12
+    query = query.vpa_memory_only_stateful_set
     args = {
-      namespace = self.input.vpa_namespace.value,
-      target_kind = self.input.vpa_target_kind.value
+      namespace = self.input.vpa_namespace.value
+    }
+  }
+
+
+  table {
+    title = "Daemon Set"
+    width = 12
+    query = query.vpa_memory_only_daemonset
+    args = {
+      namespace = self.input.vpa_namespace.value
     }
   }
 }

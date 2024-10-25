@@ -1,28 +1,40 @@
 
 dashboard "vpa_detail" {
 
-
-  title = "VPA CPU & Memory"
+  title = "VPA CPU and Memory Recommendations"
 
   input "vpa_namespace" {
     title = "Select a Namespace:"
     query = query.vpa_namespace_input
     width = 4
   }
-  input "vpa_target_kind" {
-    title = "Select a Type:"
-    query = query.vpa_target_kind_input
-    width = 4
+
+  table {
+    title = "Deployment"
+    width = 12
+    query = query.vpa_cpu_and_memory_deployment
+    args = {
+      namespace = self.input.vpa_namespace.value
+    }
   }
 
   table {
-    title = "VPA Detail"
+    title = "StatefulSet"
     width = 12
-    query = query.vpa_cpu_and_memory_detail
+    query = query.vpa_cpu_and_memory_stateful_set
     args = {
-      namespace = self.input.vpa_namespace.value,
-      target_kind = self.input.vpa_target_kind.value
+      namespace = self.input.vpa_namespace.value
     }
   }
+  
+  table {
+    title = "DaemonSet"
+    width = 12
+    query = query.vpa_cpu_and_memory_daemonset
+    args = {
+      namespace = self.input.vpa_namespace.value
+    }
+  }
+  
 }
 

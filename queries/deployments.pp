@@ -2,13 +2,13 @@
 query "deployments" {
   sql = <<-EOQ
     SELECT 
-        namespace,
-        name AS deployment_name,
-        container->>'name' AS container_name,
-        COALESCE(container->'resources'->'requests'->>'cpu', NULL) AS requests_cpu,
-        COALESCE(container->'resources'->'limits'->>'cpu', NULL) AS limits_cpu,
-        COALESCE(container->'resources'->'requests'->>'memory', NULL) AS requests_memory,
-        COALESCE(container->'resources'->'limits'->>'memory', NULL) AS limits_memory
+        namespace AS "Namespace",
+        name AS "Deployment",
+        container->>'name' AS "Container",
+        cpu_convert(COALESCE(container->'resources'->'requests'->>'cpu', NULL))||'m' AS "CPU Request",
+        cpu_convert(COALESCE(container->'resources'->'limits'->>'cpu', NULL))||'m' AS "CPU Limit",
+        bytes_to_mebi(memory_bytes(COALESCE(container->'resources'->'requests'->>'memory', NULL)))||'Mi' AS "Mem Request",
+        bytes_to_mebi(memory_bytes(COALESCE(container->'resources'->'limits'->>'memory', NULL)))||'Mi' AS "Mem Limit"
     FROM 
         kubernetes_deployment,
         jsonb_array_elements(template::jsonb->'spec'->'containers') AS container
