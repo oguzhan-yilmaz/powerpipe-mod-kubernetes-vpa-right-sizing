@@ -2,3 +2,6 @@ vpa/
 vpa-manifests/
 .powerpipe
 .mod.cache.json
+extra-args-vpa-helm.yml
+dt/
+.vscode
