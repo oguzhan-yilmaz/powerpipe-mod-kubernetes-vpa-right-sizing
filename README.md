@@ -1,5 +1,18 @@
 # powerpipe-mod-kubernetes-vpa-right-sizing
 
+
+| Dashboard Title | Details |
+| -- | -- |
+| Deployments: Limits and Requests | All Limits and Requests|
+| VPA -- Not Enabled | Workloads that doesn't have associated VPA crd objects |
+| VPA CPU Overshot | Defined `CPU Request` are **more** than average usage |
+| VPA CPU Undershot | Defined `CPU Request` are **less** than average usage |
+| VPA Memory Overshot | Defined `Memory Request` are **more** than average usage |
+| VPA Memory Undershot | Defined `Memory Request` are **less** than average usage |
+| VPA CPU Recommendations | Only CPU Recommendations |
+| VPA Memory Recommendations | Only Memory Recommendations |
+| VPA CPU and Memory Recommendations | All Recommendations |
+
 ## Kubernetes Cluster Requirements
 
 ### Install metric-server
@@ -37,7 +50,6 @@ curl -LO https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernet
 psql postgres://steampipe@127.0.0.1:9193/steampipe -f init-db.sql
 ```
 
-
 ## Mod Installation
 
 Install the Powerpipe Mod
@@ -56,13 +68,11 @@ powerpipe server
 
 You can deploy steampipe and powerpipe as a Kubernetes Deployment using [steampipe-powerpipe-kubernetes](https://github.com/oguzhan-yilmaz/steampipe-powerpipe-kubernetes).
 
-
 ### with ArgoCD
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/argocd-application.yaml
 ```
-
 
 ## Generate VPA objects for Deployments, Statefulsets and Daemonsets
 
