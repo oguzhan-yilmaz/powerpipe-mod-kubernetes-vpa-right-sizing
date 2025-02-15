@@ -1,9 +1,8 @@
 # powerpipe-mod-kubernetes-vpa-right-sizing
 
+## Kubernetes Cluster Requirements
 
-## Requirements
-
-### metric-server
+### Install metric-server
 
 Make sure [metrics-server](https://github.com/kubernetes-sigs/metrics-server/tree/master/charts/metrics-server) is installed for VPA to work by running below commands.
 
@@ -29,39 +28,6 @@ cat vpa-recommender-only.values.yaml
 helm upgrade --install vpa fairwinds-stable/vpa -f vpa-recommender-only.values.yaml -n kube-system
 ```
 
-<!-- 
-```bash
-
-git clone https://github.com/kubernetes/autoscaler.git --depth 1
-
-# remove admission-controller and updater deployments 
-# from kustomization resources
-cat << EOF > "autoscaler/vertical-pod-autoscaler/deploy/kustomization.yaml"
-resources:
-#  - admission-controller-deployment.yaml
-- recommender-deployment.yaml
-#  - updater-deployment.yaml
-- vpa-rbac.yaml
-- vpa-v1-crd-gen.yaml
-EOF
-
-# make sure changes are applied
-cat autoscaler/vertical-pod-autoscaler/deploy/kustomization.yaml
-
-# NOTE: save this file to remove the VPA installation later
-kubectl kustomize autoscaler/vertical-pod-autoscaler/deploy > vpa-recommend-manifests.yaml
-
-
-kubectl apply -f vpa-recommend-manifests.yaml
-
-
-# check the deployment health
-kubectl get deployment vpa-recommender -n kube-system
-
-kubectl logs deployment/vpa-recommender -n kube-system
-``` 
--->
-
 ### Add custom PSQL functions to Steampipe DB
 
 ```bash
@@ -71,7 +37,34 @@ curl -LO https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernet
 psql postgres://steampipe@127.0.0.1:9193/steampipe -f init-db.sql
 ```
 
-### Generate VPA objects for Deployments, Statefulsets and Daemonsets
+
+## Mod Installation
+
+Install the Powerpipe Mod
+
+```bash
+powerpipe mod install github.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing
+```
+
+Start the server and check for `Kubernetes VPA Right Sizing` mod.
+
+```bash
+powerpipe server
+```
+
+## Install steampipe-powerpipe-kubernetes
+
+You can deploy steampipe and powerpipe as a Kubernetes Deployment using [steampipe-powerpipe-kubernetes](https://github.com/oguzhan-yilmaz/steampipe-powerpipe-kubernetes).
+
+
+### with ArgoCD
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/argocd-application.yaml
+```
+
+
+## Generate VPA objects for Deployments, Statefulsets and Daemonsets
 
 ```bash
 # make sure you're targeting the correct cluster
@@ -84,19 +77,4 @@ bash generate_vpa_recommender.sh
 kubectl apply -f vpa-manifests/deployment_vpas.yaml
 kubectl apply -f vpa-manifests/statefulset_vpas.yaml
 kubectl apply -f vpa-manifests/daemonset_vpas.yaml
-```
-
-
-## Installation
-
-Install the Powerpipe Mod
-
-```bash
-powerpipe mod install github.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing
-```
-
-Start the server and check for `Kubernetes VPA Right Sizing` mod.
-
-```bash
-powerpipe server
 ```
