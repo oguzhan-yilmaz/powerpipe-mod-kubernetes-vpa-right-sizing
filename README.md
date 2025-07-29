@@ -41,6 +41,12 @@ cat vpa-recommender-only.values.yaml
 helm upgrade --install vpa fairwinds-stable/vpa -f vpa-recommender-only.values.yaml -n kube-system
 ```
 
+### with ArgoCD
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/vpa-argocd-application.yaml
+```
+
 ### Add custom PSQL functions to Steampipe DB
 
 ```bash

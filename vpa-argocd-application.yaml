@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vpa-recomender
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.fairwinds.com/stable'
+    chart: "vpa"
+    targetRevision: '4.8.0'
+    helm:
+      valuesObject:
+        fullnameOverride: "vpa-recommender"
+        recommender:
+          enabled: true
+          extraArgs:
+            v: "4"
+            pod-recommendation-min-cpu-millicores: 15
+            pod-recommendation-min-memory-mb: 100
+          resources:
+            limits: {}
+              # cpu: 200m
+              # memory: 1000Mi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+            updater:
+              enabled: false
+            admissionController:
+              enabled: false
+  destination:
+    name: "in-cluster"
+    namespace: "vpa"
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
