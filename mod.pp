@@ -2,7 +2,7 @@ mod "kubernetes_vpa_right_sizing" {
   title         = "Kubernetes VPA Right Sizing"
   description   = ""
   color         = "#0089A6"
-  documentation = file("./docs/index.md")
+  documentation = file("./README.md")
   // icon          = "/images/mods/turbot/kubernetes-insights.svg"
   categories = ["kubernetes", "cost-optimization", "dashboard"]
   // opengraph {
