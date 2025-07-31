@@ -47,15 +47,6 @@ helm upgrade --install vpa fairwinds-stable/vpa -f vpa-recommender-only.values.y
 kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/vpa-argocd-application.yaml
 ```
 
-### Add custom PSQL functions to Steampipe DB
-
-```bash
-curl -LO https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/init-db.sql
-
-# You may need to provide a password
-psql postgres://steampipe@127.0.0.1:9193/steampipe -f init-db.sql
-```
-
 ## Mod Installation
 
 Install the Powerpipe Mod
@@ -80,7 +71,9 @@ You can deploy steampipe and powerpipe as a Kubernetes Deployment using [steampi
 kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/argocd-application.yaml
 ```
 
-## Generate VPA objects for Deployments, Statefulsets and Daemonsets
+## Configuration
+
+### Generate VPA objects for Deployments, Statefulsets and Daemonsets
 
 ```bash
 # make sure you're targeting the correct cluster
@@ -93,4 +86,17 @@ bash generate_vpa_recommender.sh
 kubectl apply -f vpa-manifests/deployment_vpas.yaml
 kubectl apply -f vpa-manifests/statefulset_vpas.yaml
 kubectl apply -f vpa-manifests/daemonset_vpas.yaml
+```
+
+
+
+### [optional] Add custom PSQL functions to Steampipe DB
+
+If you are running steampipe locally, you should do this step.
+
+```bash
+curl -LO https://raw.githubusercontent.com/oguzhan-yilmaz/powerpipe-mod-kubernetes-vpa-right-sizing/refs/heads/main/init-db.sql
+
+# You may need to provide a password
+psql postgres://steampipe@127.0.0.1:9193/steampipe -f init-db.sql
 ```
